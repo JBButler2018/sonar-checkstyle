@@ -15,14 +15,13 @@ ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
 VOLUME "$USER_HOME_DIR/.m2"
 
+# create folder for wercker CI
+RUN mkdir -p /pipeline && chmod ugo+rwx /pipeline
+
 # update dpkg repositories to be able to install packages
-RUN apt-get update
-
-# install git
-RUN apt-get install -y git
-
-# install vim
-RUN apt-get install -y vim
+RUN apt-get -y update \
+  && apt-get install -y git \
+  && apt-get install -y vim
 
 USER sonarqube
 
